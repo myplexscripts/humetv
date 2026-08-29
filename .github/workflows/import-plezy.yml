@@ -25,11 +25,9 @@ jobs:
           git remote add plezy https://github.com/edde746/plezy.git
           git fetch plezy main
           git checkout plezy/main -- .
-          rm -f .github/workflows/import-plezy.yml
+          rm -rf .github/workflows
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Import Plezy source as HumeTV baseline"
           git push origin HEAD:main
-
-# HumeTV bootstrap
