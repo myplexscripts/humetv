@@ -8,35 +8,21 @@ import 'app_icon.dart';
 
 /// Defines the visual style of the back button
 enum BackButtonStyle {
-  /// Back button with circular semi-transparent background (used in detail screens)
+  /// Back button with a soft translucent background used in detail screens.
   circular,
 
-  /// Plain back button without background (used in sheets and simple contexts)
+  /// Plain back button without background used in sheets and simple contexts.
   plain,
 
-  /// Back button styled for video player overlay
+  /// Back button styled for video player overlay.
   video,
 }
 
-/// A reusable back button widget that provides consistent styling across the app.
+/// Reusable HumeTV back control.
 ///
-/// This widget supports different visual styles through [BackButtonStyle] enum:
-/// - [BackButtonStyle.circular]: Semi-transparent circular background for detail screens
-/// - [BackButtonStyle.plain]: Simple IconButton for sheets and simple contexts
-/// - [BackButtonStyle.video]: Styled for video player overlay
-///
-/// Example usage:
-/// ```dart
-/// AppBarBackButton(style: BackButtonStyle.circular)
-/// ```
+/// The visual treatment intentionally follows the restrained Apple TV pattern:
+/// a compact chevron, generous 44px target and soft translucent focus/hover fill.
 class AppBarBackButton extends StatefulWidget {
-  /// Creates a back button with the specified style.
-  ///
-  /// [style] determines the visual appearance of the back button.
-  /// [onPressed] is called when the button is tapped. If null, defaults to Navigator.pop.
-  /// [color] overrides the default icon color. If null, uses white for circular/video, theme default for plain.
-  /// [focusNode] allows callers to connect this control to an explicit focus graph.
-  /// [semanticLabel] overrides the localized back-button label.
   const AppBarBackButton({
     super.key,
     this.style = BackButtonStyle.circular,
@@ -47,13 +33,8 @@ class AppBarBackButton extends StatefulWidget {
   });
 
   final BackButtonStyle style;
-
-  /// Callback when the button is pressed. Defaults to Navigator.of(context).pop()
   final VoidCallback? onPressed;
-
-  /// The color of the back arrow icon. If null, uses style-appropriate default.
   final Color? color;
-
   final String? semanticLabel;
   final FocusNode? focusNode;
 
@@ -68,11 +49,8 @@ class _AppBarBackButtonState extends State<AppBarBackButton> with TickerProvider
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(duration: const Duration(milliseconds: 150), vsync: this);
-    _backgroundAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    _animationController = AnimationController(duration: const Duration(milliseconds: 180), vsync: this);
+    _backgroundAnimation = CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic);
   }
 
   @override
@@ -111,29 +89,24 @@ class _AppBarBackButtonState extends State<AppBarBackButton> with TickerProvider
     final Color effectiveColor;
     switch (widget.style) {
       case BackButtonStyle.plain:
-        effectiveColor = widget.color ?? (isDarkTheme ? Colors.white : Colors.black);
-        break;
+        effectiveColor = widget.color ?? theme.colorScheme.onSurface;
       case BackButtonStyle.circular:
       case BackButtonStyle.video:
         effectiveColor = widget.color ?? Colors.white;
-        break;
     }
 
     final Color baseColor;
     final Color hoverColor;
     switch (widget.style) {
       case BackButtonStyle.circular:
-        baseColor = Colors.black.withValues(alpha: 0.3);
-        hoverColor = Colors.black.withValues(alpha: 0.5);
-        break;
+        baseColor = Colors.black.withValues(alpha: 0.34);
+        hoverColor = Colors.white.withValues(alpha: 0.18);
       case BackButtonStyle.plain:
-        hoverColor = (isDarkTheme ? Colors.white : Colors.black).withValues(alpha: 0.2);
         baseColor = Colors.transparent;
-        break;
+        hoverColor = (isDarkTheme ? Colors.white : Colors.black).withValues(alpha: 0.10);
       case BackButtonStyle.video:
-        baseColor = Colors.transparent;
-        hoverColor = Colors.black.withValues(alpha: 0.3);
-        break;
+        baseColor = Colors.black.withValues(alpha: 0.18);
+        hoverColor = Colors.white.withValues(alpha: 0.16);
     }
 
     final semanticLabel = widget.semanticLabel ?? t.common.back;
@@ -145,7 +118,7 @@ class _AppBarBackButtonState extends State<AppBarBackButton> with TickerProvider
       autoScroll: false,
       disableScale: true,
       descendantsAreFocusable: false,
-      borderRadius: 20,
+      borderRadius: 22,
       child: Tooltip(
         message: semanticLabel,
         excludeFromSemantics: true,
@@ -161,11 +134,17 @@ class _AppBarBackButtonState extends State<AppBarBackButton> with TickerProvider
                 final currentColor = Color.lerp(baseColor, hoverColor, _backgroundAnimation.value);
 
                 return Container(
-                  margin: const EdgeInsets.all(8),
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(color: currentColor, shape: BoxShape.circle),
-                  child: AppIcon(Symbols.arrow_back_rounded, fill: 1, color: effectiveColor, size: 20),
+                  margin: const EdgeInsets.all(6),
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: currentColor,
+                    borderRadius: BorderRadius.circular(22),
+                    border: widget.style == BackButtonStyle.circular
+                        ? Border.all(color: Colors.white.withValues(alpha: 0.08))
+                        : null,
+                  ),
+                  child: AppIcon(Symbols.chevron_left_rounded, fill: 1, color: effectiveColor, size: 28),
                 );
               },
             ),
