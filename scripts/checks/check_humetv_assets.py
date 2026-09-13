@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parents[2]
 source = (root / 'lib/widgets/lucide_symbol_assets.dart').read_text()
-entries = dict(re.findall(r"Symbols\.(\w+): '([^']+)'", source))
+entries = dict(re.findall(r"MapEntry\(Symbols\.(\w+), '([^']+)'\)", source))
 used = set()
 for path in (root / 'lib').rglob('*.dart'):
     if path.name != 'lucide_symbol_assets.dart':

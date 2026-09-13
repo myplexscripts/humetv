@@ -1,7 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
+
+import '../widgets/app_icon.dart';
+
 import 'package:provider/provider.dart';
+
 import '../connection/connection.dart';
 import '../connection/connection_registry.dart';
 import '../connection/plex_account_setup.dart';
@@ -201,9 +207,8 @@ class _AuthScreenState extends State<AuthScreen> {
         requireProfileSelectionOnOpen: activeProfiles.requiresSelectionOnOpen(settings),
       );
       if (promptHandled) {
-        final selected = await Navigator.of(
-          context,
-        ).push<bool>(MaterialPageRoute(builder: (_) => const ProfileSwitchScreen(requireSelection: true)));
+        final selected = await Navigator.of(context)
+            .push<bool>(MaterialPageRoute(builder: (_) => const ProfileSwitchScreen(requireSelection: true)));
         if (!mounted) return;
         if (selected != true || activeProfiles.active == null) {
           setState(() => _isAuthenticating = false);
@@ -277,11 +282,12 @@ class _AuthScreenState extends State<AuthScreen> {
                           mainAxisAlignment: .center,
                           crossAxisAlignment: .center,
                           children: [
-                            Image.asset('assets/plezy.png', width: 120, height: 120),
+                            const AppIcon(Symbols.tv_rounded, size: 88),
                             const SizedBox(height: 24),
                             Text(
-                              t.app.title,
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: .bold),
+                              'HumeTV',
+                              style: Theme.of(context).textTheme.displaySmall
+                                  ?.copyWith(fontWeight: .w700, letterSpacing: -1.2),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -306,11 +312,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       mainAxisSize: .min,
                       crossAxisAlignment: .stretch,
                       children: [
-                        Image.asset('assets/plezy.png', width: 120, height: 120),
+                        const AppIcon(Symbols.tv_rounded, size: 88),
                         const SizedBox(height: 24),
                         Text(
-                          t.app.title,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: .bold),
+                          'HumeTV',
+                          style: Theme.of(context).textTheme.displaySmall
+                              ?.copyWith(fontWeight: .w700, letterSpacing: -1.2),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 48),
@@ -334,9 +341,8 @@ class _AuthScreenState extends State<AuthScreen> {
           Text(
             t.auth.waitingForAuth,
             textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
+            style: Theme.of(context).textTheme.bodyMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
           ),
         ],
       );
@@ -421,9 +427,8 @@ class _AuthScreenState extends State<AuthScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
                 t.auth.or,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6)),
+                style: Theme.of(context).textTheme.bodySmall
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6)),
               ),
             ),
             Expanded(child: Divider(color: Theme.of(context).colorScheme.outlineVariant)),
