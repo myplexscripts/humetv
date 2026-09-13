@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-/// Wrapper around [Icon] that centralizes our Material Symbols defaults.
-/// Defaults: fill=1 (filled) and weight=700 (bold). Update [AppIconDefaults]
-/// to tweak app-wide icon appearance from one place.
+import 'lucide_symbol_assets.dart';
+
+/// Renders bundled Lucide artwork while retaining Plezy's icon identifiers.
+/// Brand/custom icons outside the mapped UI vocabulary retain their renderer.
 class AppIcon extends StatelessWidget {
   const AppIcon(
     this.icon, {
@@ -32,6 +34,23 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (icon == null) return const SizedBox.shrink();
+    final asset = lucideAssetFor(icon!);
+    if (asset != null) {
+      final theme = IconTheme.of(context);
+      final resolvedSize = size ?? theme.size ?? 24;
+      final resolvedColor = color ?? theme.color ?? Colors.white;
+      return SvgPicture.asset(
+        asset,
+        width: resolvedSize,
+        height: resolvedSize,
+        colorFilter: ColorFilter.mode(
+          resolvedColor.withValues(alpha: resolvedColor.a * (theme.opacity ?? 1)),
+          BlendMode.srcIn,
+        ),
+        semanticsLabel: semanticLabel,
+        matchTextDirection: icon!.matchTextDirection,
+      );
+    }
     return Icon(
       icon,
       size: size,

@@ -67,7 +67,7 @@
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.edde746.plezy.fileprovider"
+            android:authorities="com.myplexscripts.humetv.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -76,7 +76,7 @@
         </provider>
         <provider
             android:name=".watchnext.SystemShelfArtworkProvider"
-            android:authorities="com.edde746.plezy.systemshelf.artwork"
+            android:authorities="com.myplexscripts.humetv.systemshelf.artwork"
             android:exported="false"
             android:grantUriPermissions="true" />
         <receiver

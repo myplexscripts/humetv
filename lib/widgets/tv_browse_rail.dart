@@ -81,7 +81,7 @@ class TvBrowseRailLayout {
 
   static double railInteractionExpansionForScale(double scale) => (12 * scale).clamp(8, 18).toDouble();
 
-  static double fullCardItemGapForScale(double scale) => (12 * scale).clamp(8, 18).toDouble();
+  static double fullCardItemGapForScale(double scale) => (18 * scale).clamp(14, 24).toDouble();
 
   static double viewAllItemWidthForScale(double scale) => (104 * scale).clamp(88, 132).toDouble();
 
@@ -1014,9 +1014,9 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
           final theme = Theme.of(context);
           final scale = _scale(context);
           final horizontalInset = _horizontalInset(context);
-          final interactionExpansion = TvBrowseRailLayout.railInteractionExpansionForScale(
-            scale,
-          ).clamp(0.0, horizontalInset).toDouble();
+          final interactionExpansion = TvBrowseRailLayout.railInteractionExpansionForScale(scale)
+              .clamp(0.0, horizontalInset)
+              .toDouble();
           final width = constraints.maxWidth.isFinite ? constraints.maxWidth : MediaQuery.sizeOf(context).width;
           final availableWidth = (width - horizontalInset).clamp(1.0, double.infinity).toDouble();
           final railViewportWidth = (availableWidth + interactionExpansion).clamp(1.0, double.infinity).toDouble();
@@ -1303,9 +1303,8 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
     final iconColor = isActive ? colorScheme.onSurface : colorScheme.onSurface.withValues(alpha: 0.42);
     final showServerName = widget.showServerName && hub.serverName != null;
     final serverColor = colorScheme.primary.withValues(alpha: isActive ? 0.7 : 0.4);
-    final serverStyle = Theme.of(
-      context,
-    ).textTheme.titleMedium?.copyWith(color: serverColor, fontSize: 15 * scale, height: 1, fontWeight: FontWeight.w700);
+    final serverStyle = Theme.of(context).textTheme.titleMedium
+        ?.copyWith(color: serverColor, fontSize: 15 * scale, height: 1, fontWeight: FontWeight.w700);
 
     return SizedBox(
       height: TvBrowseRailLayout.hubStripHeightForScale(scale),
@@ -1326,7 +1325,7 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
                         overflow: .ellipsis,
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: titleColor,
-                          fontSize: 18 * scale,
+                          fontSize: 22 * scale,
                           height: 1,
                           fontWeight: isActive ? FontWeight.w800 : FontWeight.w700,
                         ),
@@ -1611,7 +1610,12 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
                         item.displayTitle,
                         maxLines: 1,
                         overflow: .ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 13 * scale, height: 1.1, fontWeight: .w800),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: (16 * scale).clamp(14, 24).toDouble(),
+                          height: 1.1,
+                          fontWeight: .w800,
+                        ),
                       ),
                       if (characterName != null && characterName.isNotEmpty) ...[
                         SizedBox(height: 2 * scale),
@@ -1621,7 +1625,7 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
                           overflow: .ellipsis,
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.82),
-                            fontSize: 11 * scale,
+                            fontSize: (14 * scale).clamp(14, 22).toDouble(),
                             height: 1.1,
                             fontWeight: .w600,
                           ),
@@ -1668,7 +1672,7 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
               overflow: .ellipsis,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: tokens(context).text,
-                fontSize: 13 * scale,
+                fontSize: (16 * scale).clamp(14, 24).toDouble(),
                 height: 1.1,
                 fontWeight: .w700,
               ),
@@ -1681,7 +1685,7 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
                 overflow: .ellipsis,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: tokens(context).textMuted,
-                  fontSize: 11 * scale,
+                  fontSize: (14 * scale).clamp(14, 22).toDouble(),
                   height: 1.1,
                 ),
               ),
@@ -1820,7 +1824,7 @@ class TvBrowseRailState extends State<TvBrowseRail> with TickerProviderStateMixi
                     overflow: .ellipsis,
                     style: TextStyle(
                       color: foreground,
-                      fontSize: (13 * scale).clamp(12, 16).toDouble(),
+                      fontSize: (16 * scale).clamp(14, 22).toDouble(),
                       fontWeight: .w800,
                       letterSpacing: 0.1,
                     ),

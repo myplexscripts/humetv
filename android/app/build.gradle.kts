@@ -335,7 +335,7 @@ android {
   }
 
   defaultConfig {
-    applicationId = "com.edde746.plezy"
+    applicationId = "com.myplexscripts.humetv"
     minSdk = 25 // Fire OS 6.x (API 25); overrides libmpv-android's minSdk=26
     targetSdk = flutter.targetSdkVersion
     versionCode = flutter.versionCode
@@ -388,8 +388,11 @@ android {
       val keystorePropertiesFile = rootProject.file("key.properties")
       if (keystorePropertiesFile.exists()) {
         signingConfig = signingConfigs.getByName("release")
+      } else if (System.getenv("HUMETV_PREVIEW_SIGNING") == "1") {
+        // Explicit personal-preview builds remain release-optimised but installable.
+        // CI caches this key; distribution builds should use key.properties.
+        signingConfig = signingConfigs.getByName("debug")
       }
-      // If key.properties doesn't exist, it will use debug signing for CI builds
       ndk {
         debugSymbolLevel = "FULL"
       }

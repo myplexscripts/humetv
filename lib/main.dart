@@ -1139,6 +1139,8 @@ FutureOr<SentryEvent?> _beforeSend(SentryEvent event, Hint _) {
 
 void _registerShaderLicenses() {
   LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(['Inter'], await rootBundle.loadString('assets/fonts/OFL-Inter.txt'));
+    yield LicenseEntryWithLineBreaks(['Lucide'], await rootBundle.loadString('assets/lucide/LICENSE'));
     yield const LicenseEntryWithLineBreaks(
       ['Anime4K'],
       'MIT License\n'
@@ -1792,7 +1794,7 @@ class _AppShell extends StatelessWidget {
                 behavior: HitTestBehavior.translucent,
                 child: InputModeTracker(
                   child: MaterialApp(
-                    title: t.app.title,
+                    title: 'HumeTV',
                     debugShowCheckedModeBanner: false,
                     theme: themeProvider.lightTheme,
                     darkTheme: themeProvider.darkTheme,

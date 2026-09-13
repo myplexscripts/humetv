@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'gapped_track_shape.dart';
 import 'mono_tokens.dart';
 
@@ -64,15 +65,14 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
     }),
     foregroundColor: WidgetStatePropertyAll(isDark ? const Color(0xFF111111) : Colors.white),
     overlayColor: WidgetStatePropertyAll(c.textMuted.withValues(alpha: 0.12)),
-    shape: const WidgetStatePropertyAll(
-      RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
-    ),
+    shape: const WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22)))),
   );
 
-  final baseTextTheme = Typography.englishLike2021.apply(bodyColor: c.text, displayColor: c.text);
+  final baseTextTheme = Typography.englishLike2021.apply(fontFamily: 'Inter', bodyColor: c.text, displayColor: c.text);
 
   final base = ThemeData(
     platform: platform,
+    fontFamily: 'Inter',
     useMaterial3: true,
     brightness: isDark ? Brightness.dark : Brightness.light,
     colorScheme: ColorScheme(
@@ -119,29 +119,86 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
       toolbarHeight: 64,
       titleSpacing: 24,
       titleTextStyle: TextStyle(
+        fontFamily: 'Inter',
         color: c.text,
         fontSize: 24,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.5,
       ),
     ),
-    textTheme: baseTextTheme.copyWith(
-      displayLarge: TextStyle(color: c.text, fontSize: 48, fontWeight: FontWeight.w700, letterSpacing: -1.4),
-      displayMedium: TextStyle(color: c.text, fontSize: 40, fontWeight: FontWeight.w700, letterSpacing: -1.1),
-      displaySmall: TextStyle(color: c.text, fontSize: 34, fontWeight: FontWeight.w700, letterSpacing: -0.9),
-      headlineLarge: TextStyle(color: c.text, fontSize: 32, fontWeight: FontWeight.w700, letterSpacing: -0.8),
-      headlineMedium: TextStyle(color: c.text, fontSize: 28, fontWeight: FontWeight.w700, letterSpacing: -0.6),
-      headlineSmall: TextStyle(color: c.text, fontSize: 24, fontWeight: FontWeight.w700, letterSpacing: -0.45),
-      titleLarge: TextStyle(color: c.text, fontSize: 22, fontWeight: FontWeight.w700, letterSpacing: -0.35),
-      titleMedium: TextStyle(color: c.text, fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: -0.2),
-      titleSmall: TextStyle(color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: -0.1),
-      bodyLarge: TextStyle(color: c.text, fontSize: 18, fontWeight: FontWeight.w400),
-      bodyMedium: TextStyle(color: c.text, fontSize: 16, fontWeight: FontWeight.w400),
-      bodySmall: TextStyle(color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w400),
-      labelLarge: TextStyle(color: c.text, fontSize: 16, fontWeight: FontWeight.w600),
-      labelMedium: TextStyle(color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w600),
-      labelSmall: TextStyle(color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w500),
-    ),
+    textTheme: baseTextTheme
+        .copyWith(
+          displayLarge: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 48,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -1.4,
+          ),
+          displayMedium: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 40,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -1.1,
+          ),
+          displaySmall: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.9,
+          ),
+          headlineLarge: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.8,
+          ),
+          headlineMedium: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.6,
+          ),
+          headlineSmall: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.45,
+          ),
+          titleLarge: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.35,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: 'Inter',
+            color: c.text,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.2,
+          ),
+          titleSmall: TextStyle(
+            fontFamily: 'Inter',
+            color: c.textMuted,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.1,
+          ),
+          bodyLarge: TextStyle(fontFamily: 'Inter', color: c.text, fontSize: 18, fontWeight: FontWeight.w400),
+          bodyMedium: TextStyle(fontFamily: 'Inter', color: c.text, fontSize: 16, fontWeight: FontWeight.w400),
+          bodySmall: TextStyle(fontFamily: 'Inter', color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w400),
+          labelLarge: TextStyle(fontFamily: 'Inter', color: c.text, fontSize: 16, fontWeight: FontWeight.w600),
+          labelMedium: TextStyle(fontFamily: 'Inter', color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w600),
+          labelSmall: TextStyle(fontFamily: 'Inter', color: c.textMuted, fontSize: 16, fontWeight: FontWeight.w500),
+        )
+        .apply(fontFamily: 'Inter'),
     cardTheme: CardThemeData(
       color: c.surface,
       surfaceTintColor: Colors.transparent,
@@ -212,6 +269,7 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         final selected = states.contains(WidgetState.selected);
         return TextStyle(
+          fontFamily: 'Inter',
           color: selected ? c.text : c.textMuted,
           fontSize: 16,
           fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
@@ -226,9 +284,7 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
       backgroundColor: c.surface,
       surfaceTintColor: Colors.transparent,
       modalBackgroundColor: c.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
     ),
     dialogTheme: DialogThemeData(
       backgroundColor: c.surface,
@@ -239,7 +295,7 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
       backgroundColor: c.surfaceRaised,
-      contentTextStyle: TextStyle(color: c.text, fontSize: 16),
+      contentTextStyle: TextStyle(fontFamily: 'Inter', color: c.text, fontSize: 16),
       actionTextColor: c.text,
       elevation: 12,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(18))),
@@ -273,10 +329,7 @@ ThemeData _buildMonoTheme({required bool dark, required bool oled, required Targ
 InputDecorationTheme _inputDecorationTheme(Color text, Color textMuted, Color surfaceRaised) {
   final unfocusedFill = surfaceRaised.withValues(alpha: 0.72);
   final focusedFill = surfaceRaised;
-  const border = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(16)),
-    borderSide: BorderSide.none,
-  );
+  const border = OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)), borderSide: BorderSide.none);
   return InputDecorationTheme(
     filled: true,
     fillColor: WidgetStateColor.resolveWith(
@@ -287,7 +340,7 @@ InputDecorationTheme _inputDecorationTheme(Color text, Color textMuted, Color su
     border: border,
     enabledBorder: border,
     focusedBorder: border,
-    hintStyle: TextStyle(color: textMuted, fontSize: 16),
-    labelStyle: TextStyle(color: textMuted, fontSize: 16),
+    hintStyle: TextStyle(fontFamily: 'Inter', color: textMuted, fontSize: 16),
+    labelStyle: TextStyle(fontFamily: 'Inter', color: textMuted, fontSize: 16),
   );
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui' show lerpDouble;
+
 import '../media/ids.dart';
+
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
@@ -161,8 +163,8 @@ class NavigationRailItem extends StatelessWidget {
     this.expandedContentWidth = SideNavigationRailState.expandedWidth - 24,
     this.expandedHeight = 48,
     this.suppressSelectedBackground = false,
-    this.focusAlpha = 0.12,
-    this.selectedFocusAlpha = 0.15,
+    this.focusAlpha = 0.24,
+    this.selectedFocusAlpha = 0.28,
     this.onNavigateRight,
   });
 

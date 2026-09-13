@@ -198,7 +198,7 @@ class TvSpotlightBackground extends StatelessWidget {
           SizedBox(height: _sectionGap(scale)),
           Text(
             summary,
-            maxLines: compact ? 3 : 4,
+            maxLines: compact ? 2 : 3,
             overflow: .ellipsis,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: colorScheme.onSurface.withValues(alpha: 0.78),
@@ -291,7 +291,7 @@ class TvSpotlightBackground extends StatelessWidget {
     final textStyle = TextStyle(
       color: colorScheme.onSurface,
       fontSize: _metadataFontSize(scale),
-      fontWeight: .w700,
+      fontWeight: .w500,
       letterSpacing: 0.1,
     );
 
