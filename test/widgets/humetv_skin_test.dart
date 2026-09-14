@@ -24,18 +24,21 @@ void main() {
 
   testWidgets('remote navigation icons render bundled Lucide with semantics', (tester) async {
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: monoTheme(dark: true),
-        home: const Scaffold(body: AppIcon(Symbols.search_rounded, size: 28, semanticLabel: 'Search')),
-      ),
-    );
-    await tester.pumpAndSettle();
-    expect(find.byType(SvgPicture), findsOneWidget);
-    expect(find.bySemanticsLabel('Search'), findsOneWidget);
-    expect(tester.getSize(find.byType(SvgPicture)), const Size(28, 28));
-    expect(tester.takeException(), isNull);
+    try {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: monoTheme(dark: true),
+          home: const Scaffold(body: AppIcon(Symbols.search_rounded, size: 28, semanticLabel: 'Search')),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(SvgPicture), findsOneWidget);
+      expect(find.bySemanticsLabel('Search'), findsOneWidget);
+      expect(tester.getSize(find.byType(SvgPicture)), const Size(28, 28));
+      expect(tester.takeException(), isNull);
+    } finally {
+      semantics.dispose();
+    }
   });
 
   testWidgets('actual Inter fonts are packaged for offline TV startup', (tester) async {
