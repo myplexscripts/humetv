@@ -30,7 +30,7 @@ jobs:
           test "$(git -C "$RUNNER_TEMP/flutter" rev-parse HEAD)" = 6655482ec06e547f90abf8ae7590466f4415978d
           echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/flutter/bin/flutter" --version
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.pub-cache
@@ -38,7 +38,7 @@ jobs:
             ~/.gradle/wrapper
           key: humetv-android-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'android/**/*.gradle.kts', 'android/gradle/wrapper/gradle-wrapper.properties') }}
       - name: Retain personal preview signing identity
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.android/debug.keystore
           key: humetv-personal-preview-signing-v1
